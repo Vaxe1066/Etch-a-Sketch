@@ -21,6 +21,24 @@ html, body{
     overflow: auto;
   }
 
+  .buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    margin: auto auto auto auto;
+    
+  }
+
+  .reset:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+
+  .selectNum:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+
 
   .container{
     display: flex;
@@ -45,6 +63,7 @@ html, body{
   }
   .square{
     border: 1px solid black;
+    background-color: white;
     /*height: 50px;
     width: 50px;*/
   }
@@ -56,7 +75,13 @@ html, body{
 
 <body>
 
+  <div id="buttons" class="buttons">
+    <button id="selectNum" class="selectNum">Choose Number of Square Per Side</button>
+    <img title="Clear Board" id="reset" class="reset" src="rotate.svg" style="height: 50px; width: 50px;">
+  </div>
+
   <div id="container" class="container">
+    
     <div id="column" class="column">
 
     </div>
@@ -75,5 +100,3 @@ html, body{
 
 
 </html>
-
-

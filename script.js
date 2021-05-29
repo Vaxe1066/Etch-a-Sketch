@@ -1,5 +1,5 @@
 
-let size = 30;
+let size = 16;
 
 const container = document.querySelector('.column');
 
@@ -14,7 +14,6 @@ const rowCont = document.querySelector('.row');
 function createRow(){
     let square = document.createElement('div');
     square.classList.add('square');
-    //square.textContent="hello";
     return square;
 
 }
@@ -25,14 +24,48 @@ function duplicateRow(){
     return cln;
 
 }
-let htest = (700/size);
 
 
 function styleSquare(squareElement,size, htest){
-    squareElement.setAttribute('style', `width: ${700/size}px; height: ${htest}px;`)
+    squareElement.setAttribute('style', `width: ${700/size}px; height: ${htest-2}px;`)
     return squareElement;
 }
 
+
+function createGrid(size){
+
+    const row = document.createElement('div');
+    row.classList.add('row');
+    container.appendChild(row);
+
+    const rowCont = document.querySelector('.row');
+    let htest = (700/size);
+
+    for (let i=0; i<=(size-1); ++i){
+        let squareIn = createRow();
+        squareIn = styleSquare(squareIn, size, htest);
+        rowCont.appendChild(squareIn);
+    
+    }
+    
+    for(let i=0; i<(size-1); ++i){
+        container.appendChild(duplicateRow());
+    }
+}
+
+function removeGrid(){
+    const rows = document.querySelectorAll('.row');
+
+    rows.forEach( (row) =>{
+        row.remove();
+    });
+}
+
+
+
+
+
+let htest = (700/size);
 
 for (let i=0; i<=(size-1); ++i){
     let squareIn = createRow();
@@ -48,22 +81,68 @@ for(let i=0; i<(size-1); ++i){
 
 
 
-const squares = document.querySelectorAll('.square');
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
 
-squares.forEach( (square) =>{
-    square.addEventListener("mouseenter", function( event ) {
-        // highlight the mouseenter target
-        event.target.style.backgroundColor = "black";
-      });
+const squares=document.querySelectorAll('.square');
+
+function colorRGB(squares){
+    squares.forEach( (square) =>{
+        square.addEventListener("mouseenter", function( event ) {
+            // highlight the mouseenter target
+            event.target.style.backgroundColor = `rgb(${getRandomInt(255)},${getRandomInt(255)},${getRandomInt(255)})`;
+        });
+    });
+}
+
+
+
+const selectNum = document.querySelector('.selectNum');
+selectNum.addEventListener('click', ()=>{
+    size=prompt("Please Select a Number Between 0 and 64");
+    if(size>64||size<0){
+        alert("The number you entered, was either greater than 64, or less than 0.");
+    }
+    else if(size==undefined){
+        size=16;
+        removeGrid();
+        createGrid(size);
+        const squares=document.querySelectorAll('.square');
+        colorRGB(squares);
+        const reset = document.querySelector('.reset');
+        resetColor(reset, squares);
+    }
+    else{
+        removeGrid();
+        createGrid(size);
+        const squares=document.querySelectorAll('.square');
+        colorRGB(squares);
+        const reset = document.querySelector('.reset');
+        resetColor(reset, squares);
+    }
+
+    
 });
 
 
-let test = document.querySelector(".square");
 
-// This handler will be executed only once when the cursor
-// moves over the unordered list
-test.addEventListener("mouseenter", function( event ) {
-  // highlight the mouseenter target
-  event.target.style.backgroundColor = "black";
-});
+
+const reset = document.querySelector('.reset');
+
+
+function resetColor(reset, squares){
+    reset.addEventListener('click', () =>{
+        squares.forEach( (square) =>{
+            square.style.backgroundColor = "white";
+        });
+    });
+}
+
+
+
+colorRGB(squares);
+resetColor(reset, squares);
+
+
 
