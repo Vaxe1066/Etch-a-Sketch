@@ -99,29 +99,39 @@ function getRandomInt(max) {
 
 
   
-  
+let cnt=0;
 
 const squares=document.querySelectorAll('.square');
 
 
 
-function chooseColor(){
+function chooseColor(cnt){
     const blackBut = document.querySelector(".blackC");
     const rainBut = document.querySelector(".rainbowC");
+    const transBut = document.querySelector(".transC");
+
     blackBut.addEventListener("click", () => { 
         let color = "black";
         const squares=document.querySelectorAll('.square');
-        colorRGB(squares, color);
+        colorRGB(squares, color, cnt);
     });
 
     rainBut.addEventListener("click", () =>{
         let color = "rainbow";
         const squares=document.querySelectorAll('.square');
-        colorRGB(squares, color);
+        colorRGB(squares, color, cnt);
+    });
+
+    transBut.addEventListener("click", () =>{
+        let color = "transition";
+        const squares=document.querySelectorAll('.square');
+        colorRGB(squares, color, cnt);
     });
 }
 
-function colorRGB(squares, color){
+
+function colorRGB(squares, color, cnt){
+    cnt=0;
     squares.forEach( (square) =>{
         square.addEventListener("mouseenter", function( event ) {
             // highlight the mouseenter target
@@ -129,26 +139,34 @@ function colorRGB(squares, color){
                 event.target.style.backgroundColor = `rgb(${getRandomInt(255)},${getRandomInt(255)},${getRandomInt(255)})`;
             }
             else if(color=="black"){
-                event.target.style.backgroundColor = 'black';
+                event.target.style.backgroundColor = 'grey';
+            }
+            else if(color=="transition"){
+                if (cnt>10){
+                    cnt=0;
+                    event.target.style.backgroundColor = `rgba(0,0,0,${cnt/10})`;
+                    ++cnt;
+                }
+                else{
+                    event.target.style.backgroundColor = `rgba(0,0,0,${cnt/10})`;
+                    ++cnt;
+                }
+
+
             }
             
         });
     });
+
+    
 }
 
-function colorBlack(squares){
-    squares.forEach( (square) =>{
-        square.addEventListener("mouseenter", function( event ) {
-            // highlight the mouseenter target
-            event.target.style.backgroundColor = `black`;
-        });
-    });
-}
 
 
 
 const selectNum = document.querySelector('.selectNum');
 selectNum.addEventListener('click', ()=>{
+    cnt=0;
     size=prompt("Please Select a Number Between 0 and 64");
     if(size>64||size<0){
         alert("The number you entered, was either greater than 64, or less than 0.");
@@ -157,16 +175,18 @@ selectNum.addEventListener('click', ()=>{
         size=16;
         removeGrid();
         createGrid(size);
+        cnt=0;
         const squares=document.querySelectorAll('.square');
-        colorRGB(squares, color);
+        colorRGB(squares, color,cnt);
         const reset = document.querySelector('.reset');
         resetColor(reset, squares);
     }
     else{
         removeGrid();
         createGrid(size);
+        cnt=0;
         const squares=document.querySelectorAll('.square');
-        colorRGB(squares, color);
+        colorRGB(squares, color, cnt);
         const reset = document.querySelector('.reset');
         resetColor(reset, squares);
     }
@@ -188,9 +208,8 @@ function resetColor(reset, squares){
 
 
 
-
-colorRGB(squares, color);
-chooseColor();
+colorRGB(squares, color, cnt);
+chooseColor(cnt);
 
 resetColor(reset, squares);
 
