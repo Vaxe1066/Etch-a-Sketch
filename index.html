@@ -21,6 +21,9 @@ html, body{
     overflow: auto;
   }
 
+
+
+
   .buttons{
     display: flex;
     flex-direction: row;
@@ -39,14 +42,43 @@ html, body{
     transform: scale(1.1);
   }
 
+  .withCont{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: auto auto auto auto;
+
+    gap: 50px;
+  }
+
 
   .container{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     margin: auto auto auto auto;
     border: 2px solid black;
   }
+
+  .side{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rainbowC, .blackC, .selectNum{
+    font-size: 20px;
+  }
+
+  .rainbowC:hover, .blackC:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+
+
+
 
   .column{
     display: flex;
@@ -75,18 +107,31 @@ html, body{
 
 <body>
 
+
+
   <div id="buttons" class="buttons">
     <button id="selectNum" class="selectNum">Choose Number of Square Per Side</button>
     <img title="Clear Board" id="reset" class="reset" src="rotate.svg" style="height: 50px; width: 50px;">
   </div>
 
-  <div id="container" class="container">
-    
-    <div id="column" class="column">
+  <div id="withCont" class="withCont">
+    <div id="side" class="side">      
+      <input id = "rainbowC" class="rainbowC" type="button" value="Rainbow">
+      <input id="blackC" class="blackC" type="button" value="Black">
+    </div>
+
+
+    <div id="container" class="container">
+
+      <div id="column" class="column">
+
+      </div>
 
     </div>
 
   </div>
+
+
 
 
 

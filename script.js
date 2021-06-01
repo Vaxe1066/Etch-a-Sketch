@@ -85,13 +85,62 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
   }
 
+
+  let color="rainbow";
+
+/*
+    const selectElement = document.querySelector('#mySelect');
+
+    selectElement.addEventListener('change', (event) => {
+      color = event.target.value;
+      alert(color);
+    });
+*/
+
+
+  
+  
+
 const squares=document.querySelectorAll('.square');
 
-function colorRGB(squares){
+
+
+function chooseColor(){
+    const blackBut = document.querySelector(".blackC");
+    const rainBut = document.querySelector(".rainbowC");
+    blackBut.addEventListener("click", () => { 
+        let color = "black";
+        const squares=document.querySelectorAll('.square');
+        colorRGB(squares, color);
+    });
+
+    rainBut.addEventListener("click", () =>{
+        let color = "rainbow";
+        const squares=document.querySelectorAll('.square');
+        colorRGB(squares, color);
+    });
+}
+
+function colorRGB(squares, color){
     squares.forEach( (square) =>{
         square.addEventListener("mouseenter", function( event ) {
             // highlight the mouseenter target
-            event.target.style.backgroundColor = `rgb(${getRandomInt(255)},${getRandomInt(255)},${getRandomInt(255)})`;
+            if (color=="rainbow"){
+                event.target.style.backgroundColor = `rgb(${getRandomInt(255)},${getRandomInt(255)},${getRandomInt(255)})`;
+            }
+            else if(color=="black"){
+                event.target.style.backgroundColor = 'black';
+            }
+            
+        });
+    });
+}
+
+function colorBlack(squares){
+    squares.forEach( (square) =>{
+        square.addEventListener("mouseenter", function( event ) {
+            // highlight the mouseenter target
+            event.target.style.backgroundColor = `black`;
         });
     });
 }
@@ -109,7 +158,7 @@ selectNum.addEventListener('click', ()=>{
         removeGrid();
         createGrid(size);
         const squares=document.querySelectorAll('.square');
-        colorRGB(squares);
+        colorRGB(squares, color);
         const reset = document.querySelector('.reset');
         resetColor(reset, squares);
     }
@@ -117,15 +166,13 @@ selectNum.addEventListener('click', ()=>{
         removeGrid();
         createGrid(size);
         const squares=document.querySelectorAll('.square');
-        colorRGB(squares);
+        colorRGB(squares, color);
         const reset = document.querySelector('.reset');
         resetColor(reset, squares);
     }
 
     
 });
-
-
 
 
 const reset = document.querySelector('.reset');
@@ -141,8 +188,12 @@ function resetColor(reset, squares){
 
 
 
-colorRGB(squares);
+
+colorRGB(squares, color);
+chooseColor();
+
 resetColor(reset, squares);
+
 
 
 
